@@ -1,0 +1,36 @@
+# ----- audioenv_rev12_fixed.yml -----
+name: audioenv_rev12
+channels:
+  - pytorch           # GPU/CPU 版 PyTorch 二进制
+  - conda-forge
+  - defaults
+# 若想彻底避免旧源干扰： conda config --env --set channel_priority strict
+dependencies:
+  # —— 基础运行时 ——
+  - python=3.10          # 与 rev12 保持一致
+  - pip
+  # —— 数值/科学计算 ——
+  - numpy=1.23.5         # conda 会自动配套 numpy-base=1.23.5
+  - scipy=1.11.4
+  - numba=0.57.1         # 支持 numpy 1.23.*，且兼容 Py 3.10
+  # —— 可视化 / 图像 ——
+  - matplotlib=3.9.2
+  - pillow=9.3.0
+  # —— 音频栈 ——
+  - librosa=0.10.1
+  # soxr 没 win64 conda 包，用 pip 安装 0.3.7（最新版）
+  - pip:
+      - soxr==0.3.7
+  # —— 深度学习（Windows GPU；无 GPU 把 cudatoolkit 删掉） ——
+  - pytorch=2.1.1
+  - torchaudio=2.1.1
+  - torchvision=0.16.1
+  - cudatoolkit=11.8      # CPU 版请改成  pytorch=2.1.1 cpuonly
+  # —— Diffusers 生态 ——
+  - diffusers=0.18.2
+  - accelerate=1.0.1
+  - huggingface_hub=0.24.6
+  # —— 常用工具 ——
+  - tqdm=4.67.1
+  - fsspec=2024.12.0
+  - filelock=3.13.1
